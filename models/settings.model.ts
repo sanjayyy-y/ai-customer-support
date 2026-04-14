@@ -10,19 +10,20 @@ interface ISettings {
 const settingsSchema = new Schema<ISettings>({
     ownerId: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     businessName: {
         type: String,
-        required: true
+        // required: true
     },
     supportEmail: {
         type: String,
-        required: true
+        // required: true
     },
     knowledgeBase: {
         type: String,
-        required: true
+        // required: true
     }
 },{
     timestamps: true
