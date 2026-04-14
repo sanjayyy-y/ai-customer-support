@@ -26,6 +26,8 @@ const connectDB = async () => {
         cached.promise = null
         throw error
     }
+
+    return cached.conn
 }
 
 export default connectDB

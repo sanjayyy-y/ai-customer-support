@@ -119,8 +119,8 @@ function HomeClient({ email }: { email: string | undefined }) {
                                 </button>
                             ) : (
                                 <button className='mt-6 px-6 py-3 rounded-xl bg-black text-white font-medium hover:bg-zinc-800 transition-colors flex items-center gap-2 cursor-pointer
-                                onClick={handleLogin}
-                                '>
+                                
+                                ' onClick={handleLogin}>
                                     Get Started
                                 </button>
                             )}

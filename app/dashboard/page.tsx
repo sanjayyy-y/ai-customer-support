@@ -1,10 +1,15 @@
 import React from 'react'
+import { getSession } from '@/app/lib/getSession'
+import { NextResponse } from 'next/server'
+import DashboardClient from '@/app/components/DashboardClient'
 
-function DashboardPage() {
+async function DashboardPage() {
+    const session = await getSession()
+    
     return (
-        <div>
-            <h1>Dashboard</h1>
-        </div>
+        <>
+            <DashboardClient ownerId={session?.user?.id!}/>
+        </>
     )
 }
 

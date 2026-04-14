@@ -12,10 +12,11 @@ export async function POST(req: NextRequest) {
         const settings = await Settings.findOneAndUpdate(
             { ownerId },
             { businessName, supportEmail, knowledgeBase },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
         )
         return NextResponse.json({ settings }, { status: 200 })
     } catch (error) {
+        console.error("Settings POST error:", error)
         return NextResponse.json({ error: "Failed to create settings" }, { status: 500 })
     }
 }
