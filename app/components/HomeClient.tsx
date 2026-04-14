@@ -1,5 +1,6 @@
 "use client"
 import { AnimatePresence, motion } from 'motion/react'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
 function HomeClient({ email }: { email: string | undefined }) {
@@ -21,6 +22,7 @@ function HomeClient({ email }: { email: string | undefined }) {
             document.removeEventListener("mousedown", handleClickOutside)
         }
     }, [])
+    const navigate = useRouter()
     const features = [
         {
             title: "Plug & Play",
@@ -72,7 +74,11 @@ function HomeClient({ email }: { email: string | undefined }) {
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.2 }}
                                     className='absolute top-20 right-0 w-48 bg-white rounded-lg shadow-lg border border-zinc-200'>
-                                    <button className='w-full px-4 py-2 text-sm text-left hover:bg-zinc-100'>Dashboard</button>
+                                    <button className='w-full px-4 py-2 text-sm text-left hover:bg-zinc-100' onClick={() => navigate.push("/dashboard")}>
+                                
+                                        Dashboard
+                                        
+                                    </button>
                                     <button className='w-full px-4 py-2 text-sm text-left text-red-500 hover:bg-zinc-100' onClick={handleLogout}>
                                         Logout
                                     </button>
@@ -108,7 +114,7 @@ function HomeClient({ email }: { email: string | undefined }) {
                         <div className=' mt-8 flex gap-4'>
 
                             {email ? (
-                                <button className='mt-6 px-6 py-3 rounded-xl bg-black text-white font-medium hover:bg-zinc-800 transition-colors flex items-center gap-2 cursor-pointer'>
+                                <button className='mt-6 px-6 py-3 rounded-xl bg-black text-white font-medium hover:bg-zinc-800 transition-colors flex items-center gap-2 cursor-pointer' onClick={() => navigate.push("/dashboard")}>
                                     Go to Dashboard
                                 </button>
                             ) : (
