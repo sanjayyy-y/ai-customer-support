@@ -4,8 +4,10 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 
 function HomeClient({ email }: { email: string | undefined }) {
+    const[loading, setLoading] = useState(false)
 
     const handleLogin = () => {
+        setLoading(true)
         window.location.href = "/api/auth/login"
     }
     const firstLetter = email?.charAt(0).toUpperCase()
@@ -88,8 +90,10 @@ function HomeClient({ email }: { email: string | undefined }) {
                         </AnimatePresence>
                     </div> : <button className='px-5 py-2 rounded-full bg-zinc-900 text-white hover:bg-zinc-800 transition-colors flex items-center gap-2'
                         onClick={handleLogin}
+                        disabled={loading}
                     >
-                        Login
+                        
+                        {loading ? "Loading..." : "Login"}
                     </button>}
                 </div>
 
