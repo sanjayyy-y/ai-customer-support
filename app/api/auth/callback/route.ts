@@ -6,7 +6,7 @@ export async function GET(req:NextRequest) {
     const url = new URL(req.url)
     const code = url.searchParams.get("code")
     const state = url.searchParams.get("state")
-    const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback`
+    const redirectUri = `${req.nextUrl.origin}/api/auth/callback`
 
     if(!code) {
         return NextResponse.json({error: "Missing code"}, {status: 400})
@@ -14,7 +14,7 @@ export async function GET(req:NextRequest) {
 
     const session = await scalekit.authenticateWithCode(code,redirectUri)
     console.log(session)
-    const response = NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`)
+    const response = NextResponse.redirect(`${req.nextUrl.origin}`)
     response.cookies.set("scalekit_session", session.accessToken, {
         httpOnly: true,
         secure: true,
