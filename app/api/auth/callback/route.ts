@@ -17,7 +17,7 @@ export async function GET(req:NextRequest) {
     const response = NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}`)
     response.cookies.set("scalekit_session", session.accessToken, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         path: "/",
         maxAge: 60 * 60 * 24 * 7,
     })
