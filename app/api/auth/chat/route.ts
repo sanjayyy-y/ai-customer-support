@@ -26,13 +26,42 @@ export async function POST(req:NextRequest) {
         User question: ${message}
         `
         const ai = new GoogleGenAI({apiKey:process.env.GEMINI_API_KEY!});
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: promt,
-        });
-        return NextResponse.json(response.text)
+        let response;
+        let retries = 3;
+        while (retries > 0) {
+            try {
+                response = await ai.models.generateContent({
+                    model: "gemini-2.5-flash",
+                    contents: promt,
+                });
+                break; // If successful, exit the retry loop
+            } catch (err: any) {
+                retries--;
+                if (retries === 0) throw err; // If out of retries, throw the error to be caught by the outer catch
+                console.log(`Gemini API error, retrying... (${retries} retries left)`);
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+            }
+        }
+        const res = NextResponse.json({text: response?.text})
+        res.headers.set("Access-Control-Allow-Origin", "*")
+        res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS")
+        res.headers.set("Access-Control-Allow-Headers", "Content-Type")
+        return res
+
     } catch(error) {
         console.log(error)
-        return NextResponse.json({error: "Failed to process chat"}, {status: 500})
+        const res = NextResponse.json({error: "Failed to process chat"}, {status: 500})
+        res.headers.set("Access-Control-Allow-Origin", "*")
+        res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS")
+        res.headers.set("Access-Control-Allow-Headers", "Content-Type")
+        return res
     }
+}
+
+export const OPTIONS = async() => {
+    return  NextResponse.json(null, {status: 201, headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+    }})
 }

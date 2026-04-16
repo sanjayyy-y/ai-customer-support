@@ -140,16 +140,15 @@ function HomeClient({ email }: { email: string | undefined }) {
                             <div className='space-y-3'>
                                 <div className='bg-black text-white rounded-lg p-4 py-2 text-sm ml-auto w-fit'>Do You offer cash on delivery?</div>
                                 <div className='bg-zinc-100 rounded-lg p-4 py-2 text-sm w-fit'>Yes, we offer cash on delivery on selected items.</div>
-
                             </div>
-                            <motion.div
-                                animate={{ y: [0, -12, 0] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                                className='absolute bottom-2 right-6 w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-xl cursor-pointer'
-                            >
-                                💬
-                            </motion.div>
                         </div>
+                        <motion.div
+                            animate={{ y: [0, -12, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className='absolute -bottom-6 -right-2 w-14 h-14 bg-black text-white shadow-2xl rounded-full flex items-center justify-center cursor-pointer'
+                        >
+                            💬
+                        </motion.div>
 
                     </motion.div>
                 </div>
