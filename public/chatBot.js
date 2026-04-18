@@ -1,5 +1,5 @@
 (function () {    //--> this is called immediately invoked function
-    const api_Url = "http://localhost:3000/api/auth/chat"
+    const api_Url = "https://ai-customer-support-tawny.vercel.app/api/auth/chat"
 
     const scriptTag = document.querySelector("script[data-owner-id]")
     const ownerId = scriptTag?.getAttribute("data-owner-id")
